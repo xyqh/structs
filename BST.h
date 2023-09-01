@@ -56,10 +56,9 @@ public:
                 TreeNode *deleteNode = node->left;
                 TreeNode *successor = getSuccessorNode(deleteNode);
                 if(successor == nullptr){
+                    // 当不存在后继节点时，返回父节点
+                    successor = node;
                     // 如果子节点没有后继节点，那后继节点就是父节点，同时也说明没有右子节点
-                    if(node->left == deleteNode){
-                        successor = node;
-                    }
                     node->left = deleteNode->left;
                     setParentNode(node->left, node);
                 }else{
@@ -87,10 +86,9 @@ public:
                 // 找左节点的最右节点 或者 右节点的最左节点
                 TreeNode *successor = getSuccessorNode(deleteNode);
                 if(nullptr == successor){
+                    // 当不存在后继节点时，返回父节点
+                    successor = node;
                     // 如果没有后继节点，说明没有左子节点，同时又是父节点的右子节点，直接把该节点的左节点过继到父节点的右节点上
-                    if(node->left == deleteNode){
-                        successor = node;
-                    }
                     node->right = deleteNode->left;
                     setParentNode(node->right, node);
                 }else{

@@ -139,7 +139,7 @@ private:
             return true;
         }else if(node->bf == -2){
             // 左边深度大，看左边的情况
-            TreeNode *child = node->right;
+            TreeNode *child = node->left;
             refreshOneNodeFactor(child);
             if(child->bf == 1){
                 RotateLR(child);
@@ -183,7 +183,7 @@ public:
 
     TreeNode *Remove(T val){
         TreeNode *node = BST<T>::Remove(val);
-        // Remove返回了被删除节点原先的后继节点，直接对后继节点做平衡操作
+        // Remove返回了被删除节点原先的后继节点，直接对后继节点做平衡操作，如果没有后继节点，那就是原先的父节点
         rebalanceNodeRemove(node);
         return node;
     }
