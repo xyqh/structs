@@ -1,4 +1,4 @@
-image.pngimage.png#include "TreeBase.h"
+#include "TreeBase.h"
 #include <iostream>
 
 template<typename T>
