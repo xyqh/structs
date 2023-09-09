@@ -54,6 +54,7 @@ public:
         while(node->left or node->right){
             if(node->left && node->left->val == val){
                 TreeNode *deleteNode = node->left;
+                // 找后继节点
                 TreeNode *successor = getSuccessorNode(deleteNode);
                 if(successor == nullptr){
                     // 当不存在后继节点时，返回父节点
@@ -68,7 +69,11 @@ public:
                     // 考虑后继节点有右节点的情况，右节点需要作为被删除节点的右节点的左节点。（被删除节点必有右节点，否则不会有后继节点）
                     // 但是当后继节点为右节点时，由于getSuccessorNode接口已经断掉了联系，所以deleteNode->right已经为nullptr
                     if(deleteNode->right){
-                        deleteNode->right->left = successor->right;
+                        TreeNode *_node = deleteNode->right;
+                        while(_node->left){
+                            _node = _node->left;
+                        }
+                        _node->left = successor->right;
                         setParentNode(successor->right, deleteNode->right);
                     }
                     successor->right = deleteNode->right;
@@ -83,7 +88,7 @@ public:
 
             if(node->right && node->right->val == val){
                 TreeNode *deleteNode = node->right;
-                // 找左节点的最右节点 或者 右节点的最左节点
+                // 找后继节点
                 TreeNode *successor = getSuccessorNode(deleteNode);
                 if(nullptr == successor){
                     // 当不存在后继节点时，返回父节点
@@ -99,7 +104,11 @@ public:
                     // 考虑后继节点有右节点的情况，右节点需要作为被删除节点的右节点的左节点。（被删除节点必有右节点，否则不会有后继节点）
                     // 但是当后继节点为右节点时，由于getSuccessorNode接口已经断掉了联系，所以deleteNode->right已经为nullptr
                     if(deleteNode->right){
-                        deleteNode->right->left = successor->right;
+                        TreeNode *_node = deleteNode->right;
+                        while(_node->left){
+                            _node = _node->left;
+                        }
+                        _node->left = successor->right;
                         setParentNode(successor->right, deleteNode->right);
                     }
                     successor->right = deleteNode->right;
@@ -112,6 +121,10 @@ public:
                 return successor;
             }
 
+            if(node == dummyNode){
+                node = node->left;
+                continue;
+            }
             if(node->left && node->val > val){
                 node = node->left;
                 continue;
@@ -189,6 +202,7 @@ public:
             std::cout << std::endl;
         }
         std::cout << "LevelTraversal end" << std::endl << std::endl;
+        std::cout << std::endl;
     }
 
 protected:
