@@ -1,4 +1,4 @@
-#include "TreeBase.h"
+image.pngimage.png#include "TreeBase.h"
 #include <iostream>
 
 template<typename T>
@@ -112,18 +112,16 @@ public:
                 return successor;
             }
 
-            // 没有任何一个相等，且同时有两个子节点
-            if(node->left && node->right){
-                if(node->val > val){
-                    node = node->left;
-                }else{
-                    node = node->right;
-                }
+            if(node->left && node->val > val){
+                node = node->left;
+                continue;
+            }
+            if(node->right && node->val < val){
+                node = node->right;
                 continue;
             }
 
-            // 只有一个子节点
-            node = node->left == nullptr ? node->right : node->left;
+            break;
         }
 
         return nullptr;
